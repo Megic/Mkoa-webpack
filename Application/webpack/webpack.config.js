@@ -24,6 +24,9 @@ module.exports = {
         path: $C.staticpath+$C.V,//打包输出的路径
         filename: '[name].js' //打包后的名字
     },
+    externals: {//一些全局引用
+        //"jquery": "jQuery"
+    },
     resolveLoader: {
         modulesDirectories: [
             __dirname+'/node_modules'
