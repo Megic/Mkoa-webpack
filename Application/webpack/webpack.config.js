@@ -16,12 +16,13 @@ module.exports = {
             {test: /\.js$/, loader: "babel"},
             {test: /\.css$/, loader:ExtractTextPlugin.extract("style-loader", "css-loader")},
             {test: /\.json$/,   loader: 'json'},
+            {test: /\.html$/,   loader: 'html'},
             {test: /\.(jpg|png)$/, loader: "url?limit=8192"}
         ]
     },
     output: {
         path: $C.staticpath+$C.V,//打包输出的路径
-        filename: '[name]' //打包后的名字
+        filename: '[name].js' //打包后的名字
     },
     resolveLoader: {
         modulesDirectories: [
@@ -30,7 +31,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('common.js'),//公共代码
-        new ExtractTextPlugin("common.css", {allChunks: true})//公共样式
+        new ExtractTextPlugin("[name].css")//公共样式
     ],
     resolve: {
         root:  path.join(__dirname, 'lib')//公共库文件夹
@@ -56,7 +57,7 @@ function getFiles(){
         if(fs.statSync(apppath + '/' + item).isDirectory()){
             var mdPath=apppath + '/' + item+ '/webpack/entry/' ;//加载入口文件
             if(fs.existsSync(mdPath)) walk(mdPath,function(filePath,fileName){
-                var name=filePath.replace(apppath,'').replace('/webpack/entry/','');
+                var name=filePath.replace(apppath,'').replace('/webpack/entry/','').replace('.js','');
                 libArr[name]=filePath;
             });
         }});
