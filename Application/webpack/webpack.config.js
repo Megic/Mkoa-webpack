@@ -8,13 +8,14 @@ var sConfig = require('../../Mkoa/config')(path.join(__dirname, '../../'));
 var userConfig = require('../../config/config')(path.join(__dirname, '../../'));
 _.extend(sConfig, userConfig);
 var $C = sConfig;
+var extractCSS = new ExtractTextPlugin('style.css');
 
 module.exports = {
     'entry': getFiles(), //加载入口文件
     module: {
         loaders: [//各类文件处理器
             {test: /\.js$/, loader: "babel"},
-            {test: /\.css$/, loader:ExtractTextPlugin.extract("style-loader", "css-loader")},
+            {test: /\.css$/, loader:extractCSS.extract("style", "css")},
             {test: /\.json$/,   loader: 'json'},
             {test: /\.html$/,   loader: 'html'},
             {test: /\.(jpg|png)$/, loader: "url?limit=8192"}
@@ -23,6 +24,8 @@ module.exports = {
     output: {
         path: $C.staticpath+$C.V,//打包输出的路径
         filename: '[name].js' //打包后的名字
+        ,publicPath:$C.host+$C.V+"/"//公共文件夹
+        ,chunkFilename: "[name].chunk.js"//给require.ensure用
     },
     externals: {//一些全局引用
         //"jquery": "jQuery"
@@ -33,8 +36,8 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('common.js'),//公共代码
-        new ExtractTextPlugin("[name].css")//公共样式
+        new webpack.optimize.CommonsChunkPlugin('common.js')//公共代码
+        ,extractCSS//公共样式
     ],
     resolve: {
         root:  path.join(__dirname, 'lib')//公共库文件夹
