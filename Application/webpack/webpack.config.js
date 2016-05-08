@@ -8,13 +8,14 @@ var sConfig = require('../../Mkoa/config')(path.join(__dirname, '../../'));
 var userConfig = require('../../config/config')(path.join(__dirname, '../../'));
 _.extend(sConfig, userConfig);
 var $C = sConfig;
+
 var extractCSS = new ExtractTextPlugin('style.css');
 
 module.exports = {
     'entry': getFiles(), //加载入口文件
     module: {
         loaders: [//各类文件处理器
-            {test: /\.js$/, loader: "babel"},
+            {test: /\.js$/, loader: "babel",query: {presets: [require.resolve('babel-preset-es2015')]}},
             {test: /\.css$/, loader:extractCSS.extract("style", "css")},
             {test: /\.json$/,   loader: 'json'},
             {test: /\.html$/,   loader: 'html'},
