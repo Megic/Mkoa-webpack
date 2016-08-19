@@ -4,7 +4,7 @@ var fs = require('fs');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var _ = require('underscore');//辅助函数
-var sConfig = require('../../Mkoa/config')(path.join(__dirname, '../../'));
+var sConfig = require(path.join(__dirname,'../../node_modules/Mkoa/Mkoa/config'))(path.join(__dirname, '../../'));
 var userConfig = require('../../config/config')(path.join(__dirname, '../../'));
 _.extend(sConfig, userConfig);
 var $C = sConfig;

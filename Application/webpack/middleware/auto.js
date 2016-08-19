@@ -1,7 +1,7 @@
 module.exports = function(app){
-    if($C.controllerCache) {//监控webpack自动编译
+    if($C.controllerCache) {//鐩戞帶webpack鑷姩缂栬瘧
         var process = require('child_process');
-            //直接调用命令
+            //鐩存帴璋冪敤鍛戒护
         process.exec('webpack -p --watch', {cwd: $C.ROOT + '/' + $C.application + '/webpack'});
     }
 };

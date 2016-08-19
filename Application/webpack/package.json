@@ -16,6 +16,7 @@
     "echarts": "^3.1.7",
     "html-loader": "^0.4.3",
     "json-loader": "^0.5.4",
+    "underscore": "^1.8.3",
     "webpack": "^1.13.0"
   }
 }
