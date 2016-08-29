@@ -54,7 +54,7 @@ function getFiles(){
         var dirList = fs.readdirSync(apppath);
         dirList.forEach(function(item){
             if(fs.statSync(apppath + '/' + item).isDirectory()){
-                walk(apppath + '/' + item);
+                walk(apppath + '/' + item,callback);
             }else{
                 callback(apppath  + '/' + item,item);
             }});
